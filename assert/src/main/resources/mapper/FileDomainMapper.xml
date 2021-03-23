@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.FileDomainMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.FileDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="f_file_name" jdbcType="CHAR" property="fFileName" />
+    <result column="f_short_name" jdbcType="CHAR" property="fShortName" />
+    <result column="f_web_src" jdbcType="VARCHAR" property="fWebSrc" />
+    <result column="f_original_name" jdbcType="VARCHAR" property="fOriginalName" />
+    <result column="f_filetree_id" jdbcType="INTEGER" property="fFiletreeId" />
+    <result column="f_filetree_virtual" jdbcType="VARCHAR" property="fFiletreeVirtual" />
+    <result column="f_absolute_src" jdbcType="VARCHAR" property="fAbsoluteSrc" />
+    <result column="f_position_path" jdbcType="VARCHAR" property="fPositionPath" />
+    <result column="f_subfix" jdbcType="VARCHAR" property="fSubfix" />
+    <result column="f_size" jdbcType="INTEGER" property="fSize" />
+    <result column="is_temp" jdbcType="BOOLEAN" property="isTemp" />
+    <result column="is_del" jdbcType="BOOLEAN" property="isDel" />
+    <result column="remark_1" jdbcType="VARCHAR" property="remark1" />
+    <result column="remark_2" jdbcType="VARCHAR" property="remark2" />
+    <result column="remark_3" jdbcType="VARCHAR" property="remark3" />
+    <result column="remark_4" jdbcType="VARCHAR" property="remark4" />
+    <result column="remark_5" jdbcType="VARCHAR" property="remark5" />
+    <result column="remark_6" jdbcType="VARCHAR" property="remark6" />
+    <result column="remark_7" jdbcType="VARCHAR" property="remark7" />
+    <result column="remark_8" jdbcType="VARCHAR" property="remark8" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, f_file_name, f_short_name, f_web_src, f_original_name, f_filetree_id, f_filetree_virtual, 
+    f_absolute_src, f_position_path, f_subfix, f_size, is_temp, is_del, remark_1, remark_2, 
+    remark_3, remark_4, remark_5, remark_6, remark_7, remark_8
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.FileDomain" useGeneratedKeys="true">
+    insert into tb_file (f_file_name, f_short_name, f_web_src, 
+      f_original_name, f_filetree_id, f_filetree_virtual, 
+      f_absolute_src, f_position_path, f_subfix, 
+      f_size, is_temp, is_del, 
+      remark_1, remark_2, remark_3, 
+      remark_4, remark_5, remark_6, 
+      remark_7, remark_8)
+    values (#{fFileName,jdbcType=CHAR}, #{fShortName,jdbcType=CHAR}, #{fWebSrc,jdbcType=VARCHAR}, 
+      #{fOriginalName,jdbcType=VARCHAR}, #{fFiletreeId,jdbcType=INTEGER}, #{fFiletreeVirtual,jdbcType=VARCHAR}, 
+      #{fAbsoluteSrc,jdbcType=VARCHAR}, #{fPositionPath,jdbcType=VARCHAR}, #{fSubfix,jdbcType=VARCHAR}, 
+      #{fSize,jdbcType=INTEGER}, #{isTemp,jdbcType=BOOLEAN}, #{isDel,jdbcType=BOOLEAN}, 
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, 
+      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}, #{remark6,jdbcType=VARCHAR}, 
+      #{remark7,jdbcType=VARCHAR}, #{remark8,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective"  parameterType="org.match.dataassert.datadomain.FileDomain">
+    insert into tb_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fFileName != null">
+        f_file_name,
+      </if>
+      <if test="fShortName != null">
+        f_short_name,
+      </if>
+      <if test="fWebSrc != null">
+        f_web_src,
+      </if>
+      <if test="fOriginalName != null">
+        f_original_name,
+      </if>
+      <if test="fFiletreeId != null">
+        f_filetree_id,
+      </if>
+      <if test="fFiletreeVirtual != null">
+        f_filetree_virtual,
+      </if>
+      <if test="fAbsoluteSrc != null">
+        f_absolute_src,
+      </if>
+      <if test="fPositionPath != null">
+        f_position_path,
+      </if>
+      <if test="fSubfix != null">
+        f_subfix,
+      </if>
+      <if test="fSize != null">
+        f_size,
+      </if>
+      <if test="isTemp != null">
+        is_temp,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="remark1 != null">
+        remark_1,
+      </if>
+      <if test="remark2 != null">
+        remark_2,
+      </if>
+      <if test="remark3 != null">
+        remark_3,
+      </if>
+      <if test="remark4 != null">
+        remark_4,
+      </if>
+      <if test="remark5 != null">
+        remark_5,
+      </if>
+      <if test="remark6 != null">
+        remark_6,
+      </if>
+      <if test="remark7 != null">
+        remark_7,
+      </if>
+      <if test="remark8 != null">
+        remark_8,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fFileName != null">
+        #{fFileName,jdbcType=CHAR},
+      </if>
+      <if test="fShortName != null">
+        #{fShortName,jdbcType=CHAR},
+      </if>
+      <if test="fWebSrc != null">
+        #{fWebSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="fOriginalName != null">
+        #{fOriginalName,jdbcType=VARCHAR},
+      </if>
+      <if test="fFiletreeId != null">
+        #{fFiletreeId,jdbcType=INTEGER},
+      </if>
+      <if test="fFiletreeVirtual != null">
+        #{fFiletreeVirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="fAbsoluteSrc != null">
+        #{fAbsoluteSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="fPositionPath != null">
+        #{fPositionPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fSubfix != null">
+        #{fSubfix,jdbcType=VARCHAR},
+      </if>
+      <if test="fSize != null">
+        #{fSize,jdbcType=INTEGER},
+      </if>
+      <if test="isTemp != null">
+        #{isTemp,jdbcType=BOOLEAN},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=BOOLEAN},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+      <if test="remark6 != null">
+        #{remark6,jdbcType=VARCHAR},
+      </if>
+      <if test="remark7 != null">
+        #{remark7,jdbcType=VARCHAR},
+      </if>
+      <if test="remark8 != null">
+        #{remark8,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.FileDomain">
+    update tb_file
+    <set>
+      <if test="fFileName != null">
+        f_file_name = #{fFileName,jdbcType=CHAR},
+      </if>
+      <if test="fShortName != null">
+        f_short_name = #{fShortName,jdbcType=CHAR},
+      </if>
+      <if test="fWebSrc != null">
+        f_web_src = #{fWebSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="fOriginalName != null">
+        f_original_name = #{fOriginalName,jdbcType=VARCHAR},
+      </if>
+      <if test="fFiletreeId != null">
+        f_filetree_id = #{fFiletreeId,jdbcType=INTEGER},
+      </if>
+      <if test="fFiletreeVirtual != null">
+        f_filetree_virtual = #{fFiletreeVirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="fAbsoluteSrc != null">
+        f_absolute_src = #{fAbsoluteSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="fPositionPath != null">
+        f_position_path = #{fPositionPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fSubfix != null">
+        f_subfix = #{fSubfix,jdbcType=VARCHAR},
+      </if>
+      <if test="fSize != null">
+        f_size = #{fSize,jdbcType=INTEGER},
+      </if>
+      <if test="isTemp != null">
+        is_temp = #{isTemp,jdbcType=BOOLEAN},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=BOOLEAN},
+      </if>
+      <if test="remark1 != null">
+        remark_1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        remark_2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        remark_3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        remark_4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        remark_5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+      <if test="remark6 != null">
+        remark_6 = #{remark6,jdbcType=VARCHAR},
+      </if>
+      <if test="remark7 != null">
+        remark_7 = #{remark7,jdbcType=VARCHAR},
+      </if>
+      <if test="remark8 != null">
+        remark_8 = #{remark8,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.FileDomain">
+    update tb_file
+    set f_file_name = #{fFileName,jdbcType=CHAR},
+      f_short_name = #{fShortName,jdbcType=CHAR},
+      f_web_src = #{fWebSrc,jdbcType=VARCHAR},
+      f_original_name = #{fOriginalName,jdbcType=VARCHAR},
+      f_filetree_id = #{fFiletreeId,jdbcType=INTEGER},
+      f_filetree_virtual = #{fFiletreeVirtual,jdbcType=VARCHAR},
+      f_absolute_src = #{fAbsoluteSrc,jdbcType=VARCHAR},
+      f_position_path = #{fPositionPath,jdbcType=VARCHAR},
+      f_subfix = #{fSubfix,jdbcType=VARCHAR},
+      f_size = #{fSize,jdbcType=INTEGER},
+      is_temp = #{isTemp,jdbcType=BOOLEAN},
+      is_del = #{isDel,jdbcType=BOOLEAN},
+      remark_1 = #{remark1,jdbcType=VARCHAR},
+      remark_2 = #{remark2,jdbcType=VARCHAR},
+      remark_3 = #{remark3,jdbcType=VARCHAR},
+      remark_4 = #{remark4,jdbcType=VARCHAR},
+      remark_5 = #{remark5,jdbcType=VARCHAR},
+      remark_6 = #{remark6,jdbcType=VARCHAR},
+      remark_7 = #{remark7,jdbcType=VARCHAR},
+      remark_8 = #{remark8,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

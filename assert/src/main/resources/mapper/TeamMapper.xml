@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.TeamMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.TeamDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="event_id" jdbcType="INTEGER" property="eventId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="seed_no" jdbcType="VARCHAR" property="seedNo" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="unit_id" jdbcType="INTEGER" property="unitId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, event_id, `name`, description, seed_no, unit, unit_id, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_team
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_team
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.TeamDomain" useGeneratedKeys="true">
+    insert into t_team (event_id, `name`, description, 
+      seed_no, unit, unit_id, 
+      remark)
+    values (#{eventId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{seedNo,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.TeamDomain" useGeneratedKeys="true">
+    insert into t_team
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eventId != null">
+        event_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="seedNo != null">
+        seed_no,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eventId != null">
+        #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="seedNo != null">
+        #{seedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.TeamDomain">
+    update t_team
+    <set>
+      <if test="eventId != null">
+        event_id = #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="seedNo != null">
+        seed_no = #{seedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        unit_id = #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.TeamDomain">
+    update t_team
+    set event_id = #{eventId,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      seed_no = #{seedNo,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      unit_id = #{unitId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="batchInsert" parameterType="map" >
+    <!--@mbg.generated temp_config,-->
+    insert into t_team
+    (event_id,name,remark)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.eventId,jdbcType=INTEGER},
+      #{item.name,jdbcType=VARCHAR},
+      #{item.remark,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+</mapper>

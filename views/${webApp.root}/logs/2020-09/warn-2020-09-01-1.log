@@ -1,0 +1,2 @@
+[10:14:01:631] [WARN] - com.baomidou.mybatisplus.core.metadata.TableInfoHelper.initTableIdWithoutAnnotation(TableInfoHelper.java:380) - This "id" is the table primary key by default name for `id` in Class: "EventDomain",So @TableField will not work!
+[10:14:02:270] [WARN] - com.baomidou.mybatisplus.core.metadata.TableInfoHelper.initTableIdWithoutAnnotation(TableInfoHelper.java:380) - This "id" is the table primary key by default name for `id` in Class: "SysDictDomain",So @TableField will not work!

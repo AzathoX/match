@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.EventDomainMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.EventDomain">
+    <!--@mbg.generated-->
+    <!--@Table t_event-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="match_types" jdbcType="VARCHAR" property="matchTypes" />
+    <result column="sub_match_count" jdbcType="TINYINT" property="subMatchCount" />
+    <result column="rule_type" jdbcType="TINYINT" property="ruleType" />
+    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
+    <result column="point_system_id" jdbcType="INTEGER" property="pointSystemId" />
+    <result column="point_system_id2" jdbcType="INTEGER" property="pointSystemId2" />
+    <result column="point_system_id3" jdbcType="INTEGER" property="pointSystemId3" />
+    <result column="venue_id" jdbcType="INTEGER" property="venueId" />
+    <result column="court_count" jdbcType="INTEGER" property="courtCount" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="simple_name" jdbcType="VARCHAR" property="simpleName" />
+    <result column="sub_match_names" jdbcType="VARCHAR" property="subMatchNames" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="challenge_id" jdbcType="INTEGER" property="challengeId" />
+    <result column="be_challenged_id" jdbcType="INTEGER" property="beChallengedId" />
+    <result column="species" jdbcType="INTEGER" property="species" />
+    <result column="match_time" jdbcType="INTEGER" property="matchTime" />
+    <result column="half_time" jdbcType="INTEGER" property="halfTime" />
+    <result column="section_time" jdbcType="INTEGER" property="sectionTime" />
+    <result column="program_id" jdbcType="INTEGER" property="programId" />
+    <result column="group_count" jdbcType="INTEGER" property="groupCount" />
+    <result column="point_base" jdbcType="INTEGER" property="pointBase" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, description, `type`, match_types, sub_match_count, rule_type, team_count, 
+    point_system_id, point_system_id2, point_system_id3, venue_id, court_count, start_date, 
+    remark, simple_name, sub_match_names, create_time, challenge_id, be_challenged_id, 
+    species, match_time, half_time, section_time, program_id, group_count, point_base
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update t_event
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.name,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="description = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.description,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.type,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="match_types = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.matchTypes,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sub_match_count = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.subMatchCount,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="rule_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.ruleType,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="team_count = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.teamCount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="point_system_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.pointSystemId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="point_system_id2 = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.pointSystemId2,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="point_system_id3 = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.pointSystemId3,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="venue_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.venueId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="court_count = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.courtCount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="start_date = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.startDate,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="remark = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.remark,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="simple_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.simpleName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sub_match_names = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.subMatchNames,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="challenge_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.challengeId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="be_challenged_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.beChallengedId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="species = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.species,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="match_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.matchTime,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="half_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.halfTime,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="section_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.sectionTime,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="program_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.programId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="group_count = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.groupCount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="point_base = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.pointBase,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_event
+    (`name`, description, `type`, match_types, sub_match_count, rule_type, team_count, 
+      point_system_id, point_system_id2, point_system_id3, venue_id, court_count, start_date, 
+      remark, simple_name, sub_match_names, create_time, challenge_id, be_challenged_id, 
+      species, match_time, half_time, section_time, program_id, group_count, point_base
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.name,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, #{item.type,jdbcType=TINYINT}, 
+        #{item.matchTypes,jdbcType=VARCHAR}, #{item.subMatchCount,jdbcType=TINYINT}, #{item.ruleType,jdbcType=TINYINT}, 
+        #{item.teamCount,jdbcType=INTEGER}, #{item.pointSystemId,jdbcType=INTEGER}, #{item.pointSystemId2,jdbcType=INTEGER}, 
+        #{item.pointSystemId3,jdbcType=INTEGER}, #{item.venueId,jdbcType=INTEGER}, #{item.courtCount,jdbcType=INTEGER}, 
+        #{item.startDate,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR}, #{item.simpleName,jdbcType=VARCHAR}, 
+        #{item.subMatchNames,jdbcType=VARCHAR}, CURRENT_TIMESTAMP,
+        #{item.challengeId,jdbcType=INTEGER}, #{item.beChallengedId,jdbcType=INTEGER}, 
+        #{item.species,jdbcType=INTEGER}, #{item.matchTime,jdbcType=INTEGER}, #{item.halfTime,jdbcType=INTEGER}, 
+        #{item.sectionTime,jdbcType=INTEGER}, #{item.programId,jdbcType=INTEGER}, #{item.groupCount,jdbcType=INTEGER}, 
+        #{item.pointBase,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.EventDomain" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      `name`,
+      description,
+      `type`,
+      match_types,
+      sub_match_count,
+      rule_type,
+      team_count,
+      point_system_id,
+      point_system_id2,
+      point_system_id3,
+      venue_id,
+      court_count,
+      start_date,
+      remark,
+      simple_name,
+      sub_match_names,
+      create_time,
+      challenge_id,
+      be_challenged_id,
+      species,
+      match_time,
+      half_time,
+      section_time,
+      program_id,
+      group_count,
+      point_base,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{name,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR},
+      #{type,jdbcType=TINYINT},
+      #{matchTypes,jdbcType=VARCHAR},
+      #{subMatchCount,jdbcType=TINYINT},
+      #{ruleType,jdbcType=TINYINT},
+      #{teamCount,jdbcType=INTEGER},
+      #{pointSystemId,jdbcType=INTEGER},
+      #{pointSystemId2,jdbcType=INTEGER},
+      #{pointSystemId3,jdbcType=INTEGER},
+      #{venueId,jdbcType=INTEGER},
+      #{courtCount,jdbcType=INTEGER},
+      #{startDate,jdbcType=TIMESTAMP},
+      #{remark,jdbcType=VARCHAR},
+      #{simpleName,jdbcType=VARCHAR},
+      #{subMatchNames,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{challengeId,jdbcType=INTEGER},
+      #{beChallengedId,jdbcType=INTEGER},
+      #{species,jdbcType=INTEGER},
+      #{matchTime,jdbcType=INTEGER},
+      #{halfTime,jdbcType=INTEGER},
+      #{sectionTime,jdbcType=INTEGER},
+      #{programId,jdbcType=INTEGER},
+      #{groupCount,jdbcType=INTEGER},
+      #{pointBase,jdbcType=INTEGER},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      `name` = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=TINYINT},
+      match_types = #{matchTypes,jdbcType=VARCHAR},
+      sub_match_count = #{subMatchCount,jdbcType=TINYINT},
+      rule_type = #{ruleType,jdbcType=TINYINT},
+      team_count = #{teamCount,jdbcType=INTEGER},
+      point_system_id = #{pointSystemId,jdbcType=INTEGER},
+      point_system_id2 = #{pointSystemId2,jdbcType=INTEGER},
+      point_system_id3 = #{pointSystemId3,jdbcType=INTEGER},
+      venue_id = #{venueId,jdbcType=INTEGER},
+      court_count = #{courtCount,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      simple_name = #{simpleName,jdbcType=VARCHAR},
+      sub_match_names = #{subMatchNames,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      challenge_id = #{challengeId,jdbcType=INTEGER},
+      be_challenged_id = #{beChallengedId,jdbcType=INTEGER},
+      species = #{species,jdbcType=INTEGER},
+      match_time = #{matchTime,jdbcType=INTEGER},
+      half_time = #{halfTime,jdbcType=INTEGER},
+      section_time = #{sectionTime,jdbcType=INTEGER},
+      program_id = #{programId,jdbcType=INTEGER},
+      group_count = #{groupCount,jdbcType=INTEGER},
+      point_base = #{pointBase,jdbcType=INTEGER},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.EventDomain" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="matchTypes != null">
+        match_types,
+      </if>
+      <if test="subMatchCount != null">
+        sub_match_count,
+      </if>
+      <if test="ruleType != null">
+        rule_type,
+      </if>
+      <if test="teamCount != null">
+        team_count,
+      </if>
+      <if test="pointSystemId != null">
+        point_system_id,
+      </if>
+      <if test="pointSystemId2 != null">
+        point_system_id2,
+      </if>
+      <if test="pointSystemId3 != null">
+        point_system_id3,
+      </if>
+      <if test="venueId != null">
+        venue_id,
+      </if>
+      <if test="courtCount != null">
+        court_count,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="simpleName != null">
+        simple_name,
+      </if>
+      <if test="subMatchNames != null">
+        sub_match_names,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="challengeId != null">
+        challenge_id,
+      </if>
+      <if test="beChallengedId != null">
+        be_challenged_id,
+      </if>
+      <if test="species != null">
+        species,
+      </if>
+      <if test="matchTime != null">
+        match_time,
+      </if>
+      <if test="halfTime != null">
+        half_time,
+      </if>
+      <if test="sectionTime != null">
+        section_time,
+      </if>
+      <if test="programId != null">
+        program_id,
+      </if>
+      <if test="groupCount != null">
+        group_count,
+      </if>
+      <if test="pointBase != null">
+        point_base,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="matchTypes != null">
+        #{matchTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="subMatchCount != null">
+        #{subMatchCount,jdbcType=TINYINT},
+      </if>
+      <if test="ruleType != null">
+        #{ruleType,jdbcType=TINYINT},
+      </if>
+      <if test="teamCount != null">
+        #{teamCount,jdbcType=INTEGER},
+      </if>
+      <if test="pointSystemId != null">
+        #{pointSystemId,jdbcType=INTEGER},
+      </if>
+      <if test="pointSystemId2 != null">
+        #{pointSystemId2,jdbcType=INTEGER},
+      </if>
+      <if test="pointSystemId3 != null">
+        #{pointSystemId3,jdbcType=INTEGER},
+      </if>
+      <if test="venueId != null">
+        #{venueId,jdbcType=INTEGER},
+      </if>
+      <if test="courtCount != null">
+        #{courtCount,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleName != null">
+        #{simpleName,jdbcType=VARCHAR},
+      </if>
+      <if test="subMatchNames != null">
+        #{subMatchNames,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="challengeId != null">
+        #{challengeId,jdbcType=INTEGER},
+      </if>
+      <if test="beChallengedId != null">
+        #{beChallengedId,jdbcType=INTEGER},
+      </if>
+      <if test="species != null">
+        #{species,jdbcType=INTEGER},
+      </if>
+      <if test="matchTime != null">
+        #{matchTime,jdbcType=INTEGER},
+      </if>
+      <if test="halfTime != null">
+        #{halfTime,jdbcType=INTEGER},
+      </if>
+      <if test="sectionTime != null">
+        #{sectionTime,jdbcType=INTEGER},
+      </if>
+      <if test="programId != null">
+        #{programId,jdbcType=INTEGER},
+      </if>
+      <if test="groupCount != null">
+        #{groupCount,jdbcType=INTEGER},
+      </if>
+      <if test="pointBase != null">
+        #{pointBase,jdbcType=INTEGER},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="matchTypes != null">
+        match_types = #{matchTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="subMatchCount != null">
+        sub_match_count = #{subMatchCount,jdbcType=TINYINT},
+      </if>
+      <if test="ruleType != null">
+        rule_type = #{ruleType,jdbcType=TINYINT},
+      </if>
+      <if test="teamCount != null">
+        team_count = #{teamCount,jdbcType=INTEGER},
+      </if>
+      <if test="pointSystemId != null">
+        point_system_id = #{pointSystemId,jdbcType=INTEGER},
+      </if>
+      <if test="pointSystemId2 != null">
+        point_system_id2 = #{pointSystemId2,jdbcType=INTEGER},
+      </if>
+      <if test="pointSystemId3 != null">
+        point_system_id3 = #{pointSystemId3,jdbcType=INTEGER},
+      </if>
+      <if test="venueId != null">
+        venue_id = #{venueId,jdbcType=INTEGER},
+      </if>
+      <if test="courtCount != null">
+        court_count = #{courtCount,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleName != null">
+        simple_name = #{simpleName,jdbcType=VARCHAR},
+      </if>
+      <if test="subMatchNames != null">
+        sub_match_names = #{subMatchNames,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = NOW(),
+      </if>
+      <if test="challengeId != null">
+        challenge_id = #{challengeId,jdbcType=INTEGER},
+      </if>
+      <if test="beChallengedId != null">
+        be_challenged_id = #{beChallengedId,jdbcType=INTEGER},
+      </if>
+      <if test="species != null">
+        species = #{species,jdbcType=INTEGER},
+      </if>
+      <if test="matchTime != null">
+        match_time = #{matchTime,jdbcType=INTEGER},
+      </if>
+      <if test="halfTime != null">
+        half_time = #{halfTime,jdbcType=INTEGER},
+      </if>
+      <if test="sectionTime != null">
+        section_time = #{sectionTime,jdbcType=INTEGER},
+      </if>
+      <if test="programId != null">
+        program_id = #{programId,jdbcType=INTEGER},
+      </if>
+      <if test="groupCount != null">
+        group_count = #{groupCount,jdbcType=INTEGER},
+      </if>
+      <if test="pointBase != null">
+        point_base = #{pointBase,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

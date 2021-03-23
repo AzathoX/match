@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.PlayerDomainMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.PlayerDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="event_id" jdbcType="INTEGER" property="eventId" />
+    <result column="team_id" jdbcType="INTEGER" property="teamId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, event_id, team_id, `type`, phone, sex, unit, remark, age, `number`, id_card, 
+    photo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_player
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_player
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.PlayerDomain" useGeneratedKeys="true">
+    insert into t_player (`name`, event_id, team_id, 
+      `type`, phone, sex, unit, 
+      remark, age, `number`, 
+      id_card, photo)
+    values (#{name,jdbcType=VARCHAR}, #{eventId,jdbcType=INTEGER}, #{teamId,jdbcType=INTEGER}, 
+      #{type,jdbcType=TINYINT}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, #{unit,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, 
+      #{idCard,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.PlayerDomain" useGeneratedKeys="true">
+    insert into t_player
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="eventId != null">
+        event_id,
+      </if>
+      <if test="teamId != null">
+        team_id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="eventId != null">
+        #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="teamId != null">
+        #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.PlayerDomain">
+    update t_player
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="eventId != null">
+        event_id = #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="teamId != null">
+        team_id = #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        `number` = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.PlayerDomain">
+    update t_player
+    set `name` = #{name,jdbcType=VARCHAR},
+      event_id = #{eventId,jdbcType=INTEGER},
+      team_id = #{teamId,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=TINYINT},
+      phone = #{phone,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      unit = #{unit,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      `number` = #{number,jdbcType=INTEGER},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="batchInsert" parameterType="map" >
+    <!--@mbg.generated temp_config,-->
+    insert into t_player
+    (event_id, name, type,team_id,remark,sex)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.eventId,jdbcType=INTEGER},
+      #{item.name,jdbcType=VARCHAR},
+      #{item.type,jdbcType=TINYINT},
+      #{item.teamId,jdbcType=INTEGER},
+      #{item.remark,jdbcType=VARCHAR},
+      #{item.sex,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+</mapper>

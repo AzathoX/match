@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.PhontomDomainMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.PhontomDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="p_uniname" jdbcType="CHAR" property="pUniname" />
+    <result column="p_title" jdbcType="VARCHAR" property="pTitle" />
+    <result column="p_tel" jdbcType="CHAR" property="pTel" />
+    <result column="p_start_tel" jdbcType="CHAR" property="pStartTel" />
+    <result column="p_event_id" jdbcType="INTEGER" property="pEventId" />
+    <result column="p_account_id" jdbcType="CHAR" property="pAccountId" />
+    <result column="pet_name" jdbcType="VARCHAR" property="petName" />
+    <result column="p_check" jdbcType="TINYINT" property="pCheck" />
+    <result column="is_del" jdbcType="BOOLEAN" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="remark_1" jdbcType="VARCHAR" property="remark1" />
+    <result column="remark_2" jdbcType="VARCHAR" property="remark2" />
+    <result column="remark_3" jdbcType="VARCHAR" property="remark3" />
+    <result column="remark_4" jdbcType="VARCHAR" property="remark4" />
+  </resultMap>
+  <resultMap id="CompleteResultMap" type="org.match.dataassert.datadomain.PhontomDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="p_uniname" jdbcType="CHAR" property="pUniname" />
+    <result column="p_title" jdbcType="VARCHAR" property="pTitle" />
+    <result column="p_tel" jdbcType="CHAR" property="pTel" />
+    <result column="p_start_tel" jdbcType="CHAR" property="pStartTel" />
+    <result column="p_event_id" jdbcType="INTEGER" property="pEventId" />
+    <result column="p_account_id" jdbcType="CHAR" property="pAccountId" />
+    <result column="pet_name" jdbcType="VARCHAR" property="petName" />
+    <result column="p_check" jdbcType="TINYINT" property="pCheck" />
+    <result column="is_del" jdbcType="BOOLEAN" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="text" javaType="String" jdbcType="LONGVARCHAR" property="text"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, p_uniname, p_title, p_tel, p_start_tel, p_event_id, p_account_id, pet_name, p_check, 
+    is_del, create_time, remark_1, remark_2, remark_3, remark_4
+  </sql>
+
+  <sql id="Complete_Column_List">
+    p.id, p.p_uniname, p_title, p_tel, p_start_tel, p_event_id, p_account_id, pet_name, p_check,
+    is_del, create_time , tpt.p_text as text
+  </sql>
+  <select id="list" resultMap="CompleteResultMap">
+    select
+       <include refid="Complete_Column_List"/>
+    from t_phontom as p
+    inner join t_phontom_text as tpt
+    on p.p_uniname = tpt.p_uniname
+    where is_del = false
+    <if test="state != null">
+      and  p_check = #{state}
+    </if>
+      order by p.create_time desc
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_phontom
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_phontom
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.PhontomDomain" useGeneratedKeys="true">
+    insert into t_phontom (p_uniname, p_title, p_tel, 
+      p_start_tel, p_event_id, p_account_id, 
+      pet_name, p_check, is_del, 
+      create_time, remark_1, remark_2,
+      remark_3, remark_4)
+    values (#{pUniname,jdbcType=CHAR}, #{pTitle,jdbcType=VARCHAR}, #{pTel,jdbcType=CHAR}, 
+      #{pStartTel,jdbcType=CHAR}, #{pEventId,jdbcType=INTEGER}, #{pAccountId,jdbcType=CHAR}, 
+      #{petName,jdbcType=VARCHAR}, #{pCheck,jdbcType=TINYINT}, #{isDel,jdbcType=BOOLEAN}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR},
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.match.dataassert.datadomain.PhontomDomain">
+    insert into t_phontom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pUniname != null">
+        p_uniname,
+      </if>
+      <if test="pTitle != null">
+        p_title,
+      </if>
+      <if test="pTel != null">
+        p_tel,
+      </if>
+      <if test="pStartTel != null">
+        p_start_tel,
+      </if>
+      <if test="pEventId != null">
+        p_event_id,
+      </if>
+      <if test="pAccountId != null">
+        p_account_id,
+      </if>
+      <if test="petName != null">
+        pet_name,
+      </if>
+      <if test="pCheck != null">
+        p_check,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark1 != null">
+        remark_1,
+      </if>
+      <if test="remark2 != null">
+        remark_2,
+      </if>
+      <if test="remark3 != null">
+        remark_3,
+      </if>
+      <if test="remark4 != null">
+        remark_4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pUniname != null">
+        #{pUniname,jdbcType=CHAR},
+      </if>
+      <if test="pTitle != null">
+        #{pTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pTel != null">
+        #{pTel,jdbcType=CHAR},
+      </if>
+      <if test="pStartTel != null">
+        #{pStartTel,jdbcType=CHAR},
+      </if>
+      <if test="pEventId != null">
+        #{pEventId,jdbcType=INTEGER},
+      </if>
+      <if test="pAccountId != null">
+        #{pAccountId,jdbcType=CHAR},
+      </if>
+      <if test="petName != null">
+        #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="pCheck != null">
+        #{pCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.PhontomDomain">
+    update t_phontom
+    <set>
+      <if test="pUniname != null">
+        p_uniname = #{pUniname,jdbcType=CHAR},
+      </if>
+      <if test="pTitle != null">
+        p_title = #{pTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pTel != null">
+        p_tel = #{pTel,jdbcType=CHAR},
+      </if>
+      <if test="pStartTel != null">
+        p_start_tel = #{pStartTel,jdbcType=CHAR},
+      </if>
+      <if test="pEventId != null">
+        p_event_id = #{pEventId,jdbcType=INTEGER},
+      </if>
+      <if test="pAccountId != null">
+        p_account_id = #{pAccountId,jdbcType=CHAR},
+      </if>
+      <if test="petName != null">
+        pet_name = #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="pCheck != null">
+        p_check = #{pCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null">
+        remark_1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        remark_2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        remark_3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        remark_4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.PhontomDomain">
+    update t_phontom
+    set p_uniname = #{pUniname,jdbcType=CHAR},
+      p_title = #{pTitle,jdbcType=VARCHAR},
+      p_tel = #{pTel,jdbcType=CHAR},
+      p_start_tel = #{pStartTel,jdbcType=CHAR},
+      p_event_id = #{pEventId,jdbcType=INTEGER},
+      p_account_id = #{pAccountId,jdbcType=CHAR},
+      pet_name = #{petName,jdbcType=VARCHAR},
+      p_check = #{pCheck,jdbcType=TINYINT},
+      is_del = #{isDel,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark_1 = #{remark1,jdbcType=VARCHAR},
+      remark_2 = #{remark2,jdbcType=VARCHAR},
+      remark_3 = #{remark3,jdbcType=VARCHAR},
+      remark_4 = #{remark4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

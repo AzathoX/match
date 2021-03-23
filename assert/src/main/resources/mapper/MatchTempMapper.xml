@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.MatchTempMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.MatchTempDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="temp_uniname" jdbcType="CHAR" property="tempUniname" />
+    <result column="event_id" jdbcType="INTEGER" property="eventId" />
+    <result column="temp_config"  jdbcType="VARCHAR" property="tempConfig"  typeHandler="org.match.dataassert.support.JsonHandler" />
+    <result column="temp_count" jdbcType="INTEGER" property="tempCount" />
+    <result column="outline_rule" jdbcType="INTEGER" property="outlineRule" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="remark_1" jdbcType="VARCHAR" property="remark1" />
+    <result column="remark_2" jdbcType="VARCHAR" property="remark2" />
+    <result column="remark_3" jdbcType="VARCHAR" property="remark3" />
+  </resultMap>
+  <resultMap id="CompleteMatchTemp" type="org.match.dataassert.datadomain.MatchTempDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="temp_uniname" jdbcType="CHAR" property="tempUniname" />
+    <result column="event_id" jdbcType="INTEGER" property="eventId" />
+    <result column="temp_config" jdbcType="VARCHAR" typeHandler="org.match.dataassert.support.JsonHandler" property="tempConfig" />
+    <result column="temp_count" jdbcType="INTEGER" property="tempCount" />
+    <result column="outline_rule" jdbcType="INTEGER" property="outlineRule" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="remark_1" jdbcType="VARCHAR" property="remark1" />
+    <result column="remark_2" jdbcType="VARCHAR" property="remark2" />
+    <result column="remark_3" jdbcType="VARCHAR" property="remark3" />
+    <association property="eventDomain" javaType="org.match.dataassert.datadomain.EventDomain">
+      <id column="event_id" jdbcType="INTEGER" property="id" />
+      <result column="event_name" jdbcType="VARCHAR" property="name" />
+      <result column="description" jdbcType="VARCHAR" property="description" />
+      <result column="event_type" jdbcType="TINYINT" property="type" />
+      <result column="event_match_type" jdbcType="VARCHAR" property="matchTypes" />
+      <result column="event_sub_match_count" jdbcType="TINYINT" property="subMatchCount" />
+      <result column="event_rule_type" jdbcType="TINYINT" property="ruleType" />
+      <result column="event_team_count" jdbcType="INTEGER" property="teamCount" />
+      <result column="point_system_id" jdbcType="INTEGER" property="pointSystemId" />
+      <result column="point_system_id2" jdbcType="INTEGER" property="pointSystemId2" />
+      <result column="point_system_id3" jdbcType="INTEGER" property="pointSystemId3" />
+      <result column="venue_id" jdbcType="INTEGER" property="venueId" />
+      <result column="court_count" jdbcType="INTEGER" property="courtCount" />
+      <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+      <result column="remark" jdbcType="VARCHAR" property="remark" />
+      <result column="simple_name" jdbcType="VARCHAR" property="simpleName" />
+      <result column="event_sub_match_names" jdbcType="VARCHAR" property="subMatchNames" />
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+      <result column="challenge_id" jdbcType="INTEGER" property="challengeId" />
+      <result column="be_challenged_id" jdbcType="INTEGER" property="beChallengedId" />
+      <result column="species" jdbcType="INTEGER" property="species" />
+      <result column="match_time" jdbcType="INTEGER" property="matchTime" />
+      <result column="half_time" jdbcType="INTEGER" property="halfTime" />
+      <result column="section_time" jdbcType="INTEGER" property="sectionTime" />
+      <result column="program_id" jdbcType="INTEGER" property="programId" />
+      <result column="group_count" jdbcType="INTEGER" property="groupCount" />
+      <result column="point_base" jdbcType="INTEGER" property="pointBase" />
+    </association>
+    <association property="programDomain" javaType="org.match.dataassert.datadomain.ProgramDomain">
+      <id column="program_id" jdbcType="INTEGER" property="id" />
+      <result column="program_name" jdbcType="VARCHAR" property="name" />
+      <result column="time" jdbcType="VARCHAR" property="time" />
+      <result column="place" jdbcType="VARCHAR" property="place" />
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+      <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+      <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+      <result column="context" jdbcType="VARCHAR" property="context" />
+      <result column="is_available" jdbcType="INTEGER" property="isAvailable" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, temp_uniname, event_id, temp_config, temp_count, outline_rule, start_time, is_del, 
+    remark_1, remark_2, remark_3
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_match_temp
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectCompeleteTemplete" resultMap="CompleteMatchTemp">
+      select
+          matchTemp.id,
+          matchTemp.temp_uniname,
+          matchTemp.temp_config,
+          matchTemp.start_time,
+          matchTemp.outline_rule,
+          e.id as event_id,
+          e.name as event_name,
+          e.type as event_type,
+          e.description as event_description,
+          e.match_types as event_match_type,
+          e.simple_name,
+          e.sub_match_count as event_sub_match_count,
+          e.rule_type as event_rule_type,
+          e.team_count as event_team_count,
+          e.sub_match_names as event_sub_match_names,
+          e.species,
+          e.point_base,
+          e.group_count,
+          e.point_system_id,
+          e.point_system_id2,
+          e.point_system_id3,
+          e.venue_id,
+          p.id as program_id,
+          p.name as program_name,
+          p.context,
+          p.is_available
+      from
+       tb_match_temp as matchTemp
+      right join
+       t_event as e on matchTemp.event_id = e.id
+      left join
+       t_program as p on p.id = e.program_id;
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_match_temp
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.MatchTempDomain" useGeneratedKeys="true">
+    insert into tb_match_temp (temp_uniname, event_id, temp_config,
+      temp_count, outline_rule, start_time, 
+      is_del, remark_1, remark_2, 
+      remark_3)
+    values (#{tempUniname,jdbcType=CHAR}, #{eventId,jdbcType=INTEGER}, #{tempConfig,jdbcType=OTHER}, 
+      #{tempCount,jdbcType=INTEGER}, #{outlineRule,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{isDel,jdbcType=INTEGER}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.MatchTempDomain" useGeneratedKeys="true">
+    insert into tb_match_temp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tempUniname != null">
+        temp_uniname,
+      </if>
+      <if test="eventId != null">
+        event_id,
+      </if>
+      <if test="tempConfig != null">
+        temp_config,
+      </if>
+      <if test="tempCount != null">
+        temp_count,
+      </if>
+      <if test="outlineRule != null">
+        outline_rule,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="remark1 != null">
+        remark_1,
+      </if>
+      <if test="remark2 != null">
+        remark_2,
+      </if>
+      <if test="remark3 != null">
+        remark_3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tempUniname != null">
+        #{tempUniname,jdbcType=CHAR},
+      </if>
+      <if test="eventId != null">
+        #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="tempConfig != null">
+        #{tempConfig,jdbcType=OTHER},
+      </if>
+      <if test="tempCount != null">
+        #{tempCount,jdbcType=INTEGER},
+      </if>
+      <if test="outlineRule != null">
+        #{outlineRule,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.MatchTempDomain">
+    update tb_match_temp
+    <set>
+      <if test="tempUniname != null">
+        temp_uniname = #{tempUniname,jdbcType=CHAR},
+      </if>
+      <if test="eventId != null">
+        event_id = #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="tempConfig != null">
+        temp_config = #{tempConfig,jdbcType=OTHER},
+      </if>
+      <if test="tempCount != null">
+        temp_count = #{tempCount,jdbcType=INTEGER},
+      </if>
+      <if test="outlineRule != null">
+        outline_rule = #{outlineRule,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark1 != null">
+        remark_1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        remark_2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        remark_3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.MatchTempDomain">
+    update tb_match_temp
+    set temp_uniname = #{tempUniname,jdbcType=CHAR},
+      event_id = #{eventId,jdbcType=INTEGER},
+      temp_config = #{tempConfig,jdbcType=OTHER},
+      temp_count = #{tempCount,jdbcType=INTEGER},
+      outline_rule = #{outlineRule,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=INTEGER},
+      remark_1 = #{remark1,jdbcType=VARCHAR},
+      remark_2 = #{remark2,jdbcType=VARCHAR},
+      remark_3 = #{remark3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="batchInsert" parameterType="map" >
+    <!--@mbg.generated temp_config,-->
+    insert into tb_match_temp
+     (temp_uniname,event_id,temp_config)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.tempUniname,jdbcType=VARCHAR},
+      #{item.eventId,jdbcType=INTEGER},
+      #{item.tempConfig,jdbcType=OTHER,typeHandler=org.match.dataassert.support.JsonHandler})
+    </foreach>
+  </insert>
+</mapper>

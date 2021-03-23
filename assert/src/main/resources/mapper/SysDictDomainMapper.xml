@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.SysDictDomainMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.SysDictDomain">
+    <!--@mbg.generated-->
+    <!--@Table t_sys_dict-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cat" jdbcType="VARCHAR" property="cat" />
+    <result column="code" jdbcType="TINYINT" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="man_count" jdbcType="INTEGER" property="manCount" />
+    <result column="age_limit" jdbcType="INTEGER" property="ageLimit" />
+    <result column="double_age_limit" jdbcType="INTEGER" property="doubleAgeLimit" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, cat, code, `name`, seq, description, man_count, age_limit, double_age_limit, 
+    `type`
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update t_sys_dict
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="cat = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.cat,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="code = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.code,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.name,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="seq = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.seq,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="description = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.description,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="man_count = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.manCount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="age_limit = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.ageLimit,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="double_age_limit = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.doubleAgeLimit,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="`type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.type,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_sys_dict
+    (cat, code, `name`, seq, description, man_count, age_limit, double_age_limit, `type`
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.cat,jdbcType=VARCHAR}, #{item.code,jdbcType=TINYINT}, #{item.name,jdbcType=VARCHAR}, 
+        #{item.seq,jdbcType=INTEGER}, #{item.description,jdbcType=VARCHAR}, #{item.manCount,jdbcType=INTEGER}, 
+        #{item.ageLimit,jdbcType=INTEGER}, #{item.doubleAgeLimit,jdbcType=INTEGER}, #{item.type,jdbcType=TINYINT}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.SysDictDomain" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_sys_dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      cat,
+      code,
+      `name`,
+      seq,
+      description,
+      man_count,
+      age_limit,
+      double_age_limit,
+      `type`,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{cat,jdbcType=VARCHAR},
+      #{code,jdbcType=TINYINT},
+      #{name,jdbcType=VARCHAR},
+      #{seq,jdbcType=INTEGER},
+      #{description,jdbcType=VARCHAR},
+      #{manCount,jdbcType=INTEGER},
+      #{ageLimit,jdbcType=INTEGER},
+      #{doubleAgeLimit,jdbcType=INTEGER},
+      #{type,jdbcType=TINYINT},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      cat = #{cat,jdbcType=VARCHAR},
+      code = #{code,jdbcType=TINYINT},
+      `name` = #{name,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      man_count = #{manCount,jdbcType=INTEGER},
+      age_limit = #{ageLimit,jdbcType=INTEGER},
+      double_age_limit = #{doubleAgeLimit,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=TINYINT},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.SysDictDomain" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_sys_dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cat != null">
+        cat,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="seq != null">
+        seq,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="manCount != null">
+        man_count,
+      </if>
+      <if test="ageLimit != null">
+        age_limit,
+      </if>
+      <if test="doubleAgeLimit != null">
+        double_age_limit,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cat != null">
+        #{cat,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null">
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="manCount != null">
+        #{manCount,jdbcType=INTEGER},
+      </if>
+      <if test="ageLimit != null">
+        #{ageLimit,jdbcType=INTEGER},
+      </if>
+      <if test="doubleAgeLimit != null">
+        #{doubleAgeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cat != null">
+        cat = #{cat,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null">
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="manCount != null">
+        man_count = #{manCount,jdbcType=INTEGER},
+      </if>
+      <if test="ageLimit != null">
+        age_limit = #{ageLimit,jdbcType=INTEGER},
+      </if>
+      <if test="doubleAgeLimit != null">
+        double_age_limit = #{doubleAgeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

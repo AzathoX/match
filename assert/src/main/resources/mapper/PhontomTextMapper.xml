@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.PhontomTextMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.PhontomText">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="p_uniname" jdbcType="CHAR" property="pUniname" />
+    <result column="p_text" jdbcType="VARCHAR" property="pText" />
+    <result column="remark_1" jdbcType="VARCHAR" property="remark1" />
+    <result column="remark_2" jdbcType="VARCHAR" property="remark2" />
+    <result column="remark_3" jdbcType="VARCHAR" property="remark3" />
+    <result column="remark_4" jdbcType="VARCHAR" property="remark4" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, p_uniname, p_text, remark_1, remark_2, remark_3, remark_4
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_phontom_text
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_phontom_text
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.PhontomText" useGeneratedKeys="true">
+    insert into t_phontom_text (p_uniname, p_text, remark_1, 
+      remark_2, remark_3, remark_4
+      )
+    values (#{pUniname,jdbcType=CHAR}, #{pText,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.PhontomText" useGeneratedKeys="true">
+    insert into t_phontom_text
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pUniname != null">
+        p_uniname,
+      </if>
+      <if test="pText != null">
+        p_text,
+      </if>
+      <if test="remark1 != null">
+        remark_1,
+      </if>
+      <if test="remark2 != null">
+        remark_2,
+      </if>
+      <if test="remark3 != null">
+        remark_3,
+      </if>
+      <if test="remark4 != null">
+        remark_4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pUniname != null">
+        #{pUniname,jdbcType=CHAR},
+      </if>
+      <if test="pText != null">
+        #{pText,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.PhontomText">
+    update t_phontom_text
+    <set>
+      <if test="pUniname != null">
+        p_uniname = #{pUniname,jdbcType=CHAR},
+      </if>
+      <if test="pText != null">
+        p_text = #{pText,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        remark_1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        remark_2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        remark_3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        remark_4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.PhontomText">
+    update t_phontom_text
+    set p_uniname = #{pUniname,jdbcType=CHAR},
+      p_text = #{pText,jdbcType=VARCHAR},
+      remark_1 = #{remark1,jdbcType=VARCHAR},
+      remark_2 = #{remark2,jdbcType=VARCHAR},
+      remark_3 = #{remark3,jdbcType=VARCHAR},
+      remark_4 = #{remark4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

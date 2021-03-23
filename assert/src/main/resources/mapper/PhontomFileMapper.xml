@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.PhontomFileMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.PhontomFileDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="p_uniname" jdbcType="CHAR" property="pUniname" />
+    <result column="f_short_name" jdbcType="CHAR" property="fShortName" />
+  </resultMap>
+
+  <resultMap id="SubfixBaseResultMap" type="org.match.dataassert.datadomain.PhontomFileDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="p_uniname" jdbcType="CHAR" property="pUniname" />
+    <result column="f_short_name" jdbcType="CHAR" property="fShortName" />
+    <result column="subfix" jdbcType="VARCHAR" property="subFix" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, p_uniname, f_short_name
+  </sql>
+  <sql id="Subfix_Base_Column_List">
+    tpf.id, p_uniname, tpf.f_short_name,f.f_subfix as subfix
+  </sql>
+  <select id="selectByPrimaryKey"  resultMap="SubfixBaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_phontom_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="map"  resultType="map">
+    select
+    <include refid="Subfix_Base_Column_List" />
+    from t_phontom_file as tpf
+    inner join tb_file as f  on tpf.f_short_name = f.f_short_name
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_phontom_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.PhontomFileDomain" useGeneratedKeys="true">
+    insert into t_phontom_file (p_uniname, f_short_name)
+    values (#{pUniname,jdbcType=CHAR}, #{fShortName,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.match.dataassert.datadomain.PhontomFileDomain" >
+    insert into t_phontom_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pUniname != null">
+        p_uniname,
+      </if>
+      <if test="fShortName != null">
+        f_short_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pUniname != null">
+        #{pUniname,jdbcType=CHAR},
+      </if>
+      <if test="fShortName != null">
+        #{fShortName,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="batchInsert" parameterType="map" >
+    <!--@mbg.generated-->
+    insert into t_phontom_file
+    (p_uniname,f_short_name)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.pUniname,jdbcType=VARCHAR}, #{item.fShortName,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.PhontomFileDomain">
+    update t_phontom_file
+    <set>
+      <if test="pUniname != null">
+        p_uniname = #{pUniname,jdbcType=CHAR},
+      </if>
+      <if test="fShortName != null">
+        f_short_name = #{fShortName,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.PhontomFileDomain">
+    update t_phontom_file
+    set p_uniname = #{pUniname,jdbcType=CHAR},
+      f_short_name = #{fShortName,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
