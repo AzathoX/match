@@ -86,4 +86,10 @@ create table if not exists  t_temp_account(
 
 alter table t_group add column(uniname char(64) unique );
 alter table t_group modify  uniname char(64) unique after  id;
+alter table t_group_team_rel add column (uniname char(64));
+alter table t_group_team_rel modify  uniname char(64)  after id;
+alter table t_stage add column(uniname char(64) unique );
+alter table t_stage modify  uniname char(64) unique after  id;
+alter table t_stage_team_rel add column(uniname char(64) );
+alter table t_stage_team_rel modify  uniname char(64)  after  id;
 
