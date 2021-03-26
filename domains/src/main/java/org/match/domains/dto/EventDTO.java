@@ -6,7 +6,6 @@ import lombok.ToString;
 import org.match.domains.bo.MatchTemplateBO;
 
 import java.util.Date;
-import java.util.Objects;
 
 @Data
 @ToString
@@ -61,6 +60,8 @@ public class EventDTO extends AbstractDTO<MatchTemplateBO> {
     private Integer species;
     private Integer pointBase;
     private Integer groupCount;
+    private Integer courtCount;
+    private Date startTime;
 
     @Override
     public MatchTemplateBO bo() {
@@ -82,8 +83,9 @@ public class EventDTO extends AbstractDTO<MatchTemplateBO> {
                 .groupCount(groupCount)
                 .pointBase(pointBase)
                 .species(species)
+                .courtCount(courtCount)
+                .startDate(startTime)
                 .build();
-
         return build;
     }
 

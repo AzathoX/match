@@ -1,17 +1,17 @@
 package org.match.services.ddd.support;
 
 import org.match.dataassert.datadomain.TeamDomain;
+import org.match.domains.bo.MatchTemplateBO;
 import org.match.services.ddd.AbstractGroup;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class BaseGroup extends AbstractGroup {
+public class OriginGroup extends AbstractGroup {
  
 
     private static  List<TeamDomain[][]> ALLOCATE_RULE = new ArrayList<>();
+
 
 
     private static final int MAX_TEAM_RULE = 64;
@@ -72,12 +72,20 @@ public class BaseGroup extends AbstractGroup {
     public void init(){
         super.teamsGroup =  ALLOCATE_RULE.get(super.teamDomains.size()).clone();
     }
-    
-    
 
-    public BaseGroup(List<TeamDomain> teamDomains) {
+
+
+
+    public OriginGroup(List<TeamDomain> teamDomains , int eventId) {
         super(teamDomains);
+        this.eventId = eventId;
     }
+
+    public OriginGroup(List<TeamDomain> teamDomains , MatchTemplateBO bo) {
+         this(teamDomains,bo.getEventId());
+         this.matchBo = bo;
+    }
+
 
     @Override
     public List<TeamDomain> doAllocate() {
@@ -86,13 +94,15 @@ public class BaseGroup extends AbstractGroup {
         for (int i = 0; i < this.teamsGroup.length; i++) {
             //初始化每個數組項
             this.teamsGroup[i] = new TeamDomain[groupSize];
+            String uniName = this.addGroupList((char)('A'+ i)+"");
             //設置數組
             for(int j = 0 ; j < groupSize ; j++){
                  int index = (i * groupSize)+j;
                  if(index < teamDomains.size()){
-                     this.teamsGroup[i][j] = teamDomains.get(index);
+                     TeamDomain teamDomain = teamDomains.get(index);
+                     this.teamsGroup[i][j] = teamDomain;
+                     this.addTeamGroupRel(uniName,teamDomain);
                  }
-
             }
         }
         return null;

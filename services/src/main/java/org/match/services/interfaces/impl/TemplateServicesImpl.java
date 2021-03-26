@@ -1,18 +1,19 @@
 package org.match.services.interfaces.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.match.dataassert.datadomain.*;
-import org.match.dataassert.mapper.*;
-import org.match.services.utils.AbstractMD5Utils;
+import org.match.domains.bo.MatchTemplateBO;
+import org.match.domains.dto.EventDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.match.domains.bo.MatchTemplateBO;
-import org.match.domains.dto.EventDTO;
+import org.match.dataassert.datadomain.*;
+import org.match.dataassert.mapper.*;
+import org.match.domains.bo.BusinessObject;
 import org.match.domains.vo.TemplatePageVO;
 import org.match.domains.vo.ViewObject;
 import org.match.services.ddd.Match;
 import org.match.services.interfaces.TemplateServices;
+import org.match.services.utils.AbstractMD5Utils;
 
 import java.util.*;
 
@@ -108,7 +109,7 @@ public class TemplateServicesImpl implements TemplateServices {
 
     @Transactional
     @Override
-    public EventDomain create(EventDTO dto){
+    public BusinessObject create(EventDTO dto){
         lockMark ++;
         String mark = AbstractMD5Utils.md516Byte(lockMark + "");
         MatchTemplateBO bo = dto.bo();
@@ -121,16 +122,16 @@ public class TemplateServicesImpl implements TemplateServices {
         eventDomainMapper.batchInsert(eventDomains);
         //重新取出数据
         List<EventDomain> list = eventDomainMapper.selectList(new QueryWrapper<EventDomain>().eq(EventDomain.COL_REMARK, mark));
-        List<TeamDomain> teams;
         if(list.size() > 0){
             //去除锁
             eventDomain = list.get(0);
             eventDomain.setRemark("ok");
             eventDomainMapper.updateById(eventDomain);
-            teams = createTeam(match);
-            //分組抽籤 沒有種子選手實現
+            createTeam(match);
+
         }
-        return eventDomain;
+        bo.setEventId(eventDomain.getId());
+        return bo;
     }
 
 
@@ -144,8 +145,8 @@ public class TemplateServicesImpl implements TemplateServices {
         match.jsonConfig();
         MatchTempDomain vmatchTempDomain = match.getMatchTempDomain();
         //持久化
-        List<MatchTempDomain> vmatchTempDomainList = new ArrayList<>();
-        vmatchTempDomainList.add(vmatchTempDomain);
-        matchTempMapper.batchInsert(vmatchTempDomainList);
+        List<MatchTempDomain> matchTempDomainList = new ArrayList<>();
+        matchTempDomainList.add(vmatchTempDomain);
+        matchTempMapper.batchInsert(matchTempDomainList);
     }
 }

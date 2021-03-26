@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.match.dataassert.mapper.StageMapper">
+  <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.StageDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uniname" jdbcType="CHAR" property="uniname" />
+    <result column="event_id" jdbcType="INTEGER" property="eventId" />
+    <result column="prev_stage_id" jdbcType="INTEGER" property="prevStageId" />
+    <result column="no" jdbcType="INTEGER" property="no" />
+    <result column="competition_rule_id" jdbcType="INTEGER" property="competitionRuleId" />
+    <result column="court_count" jdbcType="TINYINT" property="courtCount" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="am_start_time" jdbcType="INTEGER" property="amStartTime" />
+    <result column="pm_start_time" jdbcType="INTEGER" property="pmStartTime" />
+    <result column="group_count" jdbcType="TINYINT" property="groupCount" />
+    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
+    <result column="match_count" jdbcType="INTEGER" property="matchCount" />
+    <result column="req_court_count" jdbcType="INTEGER" property="reqCourtCount" />
+    <result column="req_court_hours" jdbcType="VARCHAR" property="reqCourtHours" />
+    <result column="special_match_type" jdbcType="INTEGER" property="specialMatchType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uniname, event_id, prev_stage_id, `no`, competition_rule_id, court_count, start_date, 
+    am_start_time, pm_start_time, group_count, team_count, match_count, req_court_count, 
+    req_court_hours, special_match_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_stage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_stage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.match.dataassert.datadomain.StageDomain" >
+    insert into t_stage (uniname, event_id, prev_stage_id, 
+      `no`, competition_rule_id, court_count, 
+      start_date, am_start_time, pm_start_time, 
+      group_count, team_count, match_count, 
+      req_court_count, req_court_hours, special_match_type
+      )
+    values (#{uniname,jdbcType=CHAR}, #{eventId,jdbcType=INTEGER}, #{prevStageId,jdbcType=INTEGER}, 
+      #{no,jdbcType=INTEGER}, #{competitionRuleId,jdbcType=INTEGER}, #{courtCount,jdbcType=TINYINT}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{amStartTime,jdbcType=INTEGER}, #{pmStartTime,jdbcType=INTEGER}, 
+      #{groupCount,jdbcType=TINYINT}, #{teamCount,jdbcType=INTEGER}, #{matchCount,jdbcType=INTEGER}, 
+      #{reqCourtCount,jdbcType=INTEGER}, #{reqCourtHours,jdbcType=VARCHAR}, #{specialMatchType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.StageDomain" useGeneratedKeys="true">
+    insert into t_stage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uniname != null">
+        uniname,
+      </if>
+      <if test="eventId != null">
+        event_id,
+      </if>
+      <if test="prevStageId != null">
+        prev_stage_id,
+      </if>
+      <if test="no != null">
+        `no`,
+      </if>
+      <if test="competitionRuleId != null">
+        competition_rule_id,
+      </if>
+      <if test="courtCount != null">
+        court_count,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="amStartTime != null">
+        am_start_time,
+      </if>
+      <if test="pmStartTime != null">
+        pm_start_time,
+      </if>
+      <if test="groupCount != null">
+        group_count,
+      </if>
+      <if test="teamCount != null">
+        team_count,
+      </if>
+      <if test="matchCount != null">
+        match_count,
+      </if>
+      <if test="reqCourtCount != null">
+        req_court_count,
+      </if>
+      <if test="reqCourtHours != null">
+        req_court_hours,
+      </if>
+      <if test="specialMatchType != null">
+        special_match_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uniname != null">
+        #{uniname,jdbcType=CHAR},
+      </if>
+      <if test="eventId != null">
+        #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="prevStageId != null">
+        #{prevStageId,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=INTEGER},
+      </if>
+      <if test="competitionRuleId != null">
+        #{competitionRuleId,jdbcType=INTEGER},
+      </if>
+      <if test="courtCount != null">
+        #{courtCount,jdbcType=TINYINT},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amStartTime != null">
+        #{amStartTime,jdbcType=INTEGER},
+      </if>
+      <if test="pmStartTime != null">
+        #{pmStartTime,jdbcType=INTEGER},
+      </if>
+      <if test="groupCount != null">
+        #{groupCount,jdbcType=TINYINT},
+      </if>
+      <if test="teamCount != null">
+        #{teamCount,jdbcType=INTEGER},
+      </if>
+      <if test="matchCount != null">
+        #{matchCount,jdbcType=INTEGER},
+      </if>
+      <if test="reqCourtCount != null">
+        #{reqCourtCount,jdbcType=INTEGER},
+      </if>
+      <if test="reqCourtHours != null">
+        #{reqCourtHours,jdbcType=VARCHAR},
+      </if>
+      <if test="specialMatchType != null">
+        #{specialMatchType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.StageDomain">
+    update t_stage
+    <set>
+      <if test="uniname != null">
+        uniname = #{uniname,jdbcType=CHAR},
+      </if>
+      <if test="eventId != null">
+        event_id = #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="prevStageId != null">
+        prev_stage_id = #{prevStageId,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        `no` = #{no,jdbcType=INTEGER},
+      </if>
+      <if test="competitionRuleId != null">
+        competition_rule_id = #{competitionRuleId,jdbcType=INTEGER},
+      </if>
+      <if test="courtCount != null">
+        court_count = #{courtCount,jdbcType=TINYINT},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amStartTime != null">
+        am_start_time = #{amStartTime,jdbcType=INTEGER},
+      </if>
+      <if test="pmStartTime != null">
+        pm_start_time = #{pmStartTime,jdbcType=INTEGER},
+      </if>
+      <if test="groupCount != null">
+        group_count = #{groupCount,jdbcType=TINYINT},
+      </if>
+      <if test="teamCount != null">
+        team_count = #{teamCount,jdbcType=INTEGER},
+      </if>
+      <if test="matchCount != null">
+        match_count = #{matchCount,jdbcType=INTEGER},
+      </if>
+      <if test="reqCourtCount != null">
+        req_court_count = #{reqCourtCount,jdbcType=INTEGER},
+      </if>
+      <if test="reqCourtHours != null">
+        req_court_hours = #{reqCourtHours,jdbcType=VARCHAR},
+      </if>
+      <if test="specialMatchType != null">
+        special_match_type = #{specialMatchType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.StageDomain">
+    update t_stage
+    set uniname = #{uniname,jdbcType=CHAR},
+      event_id = #{eventId,jdbcType=INTEGER},
+      prev_stage_id = #{prevStageId,jdbcType=INTEGER},
+      `no` = #{no,jdbcType=INTEGER},
+      competition_rule_id = #{competitionRuleId,jdbcType=INTEGER},
+      court_count = #{courtCount,jdbcType=TINYINT},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      am_start_time = #{amStartTime,jdbcType=INTEGER},
+      pm_start_time = #{pmStartTime,jdbcType=INTEGER},
+      group_count = #{groupCount,jdbcType=TINYINT},
+      team_count = #{teamCount,jdbcType=INTEGER},
+      match_count = #{matchCount,jdbcType=INTEGER},
+      req_court_count = #{reqCourtCount,jdbcType=INTEGER},
+      req_court_hours = #{reqCourtHours,jdbcType=VARCHAR},
+      special_match_type = #{specialMatchType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

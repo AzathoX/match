@@ -62,6 +62,7 @@ public class MatchTemplateBO implements BusinessObject {
     private Integer courtCount;
 
 
+    @Setter
     private Date startDate;
 
 
@@ -75,7 +76,9 @@ public class MatchTemplateBO implements BusinessObject {
     private Integer species;
 
 
+    @Setter
     private Integer eventId;
+
 
 
 
@@ -107,6 +110,7 @@ public class MatchTemplateBO implements BusinessObject {
 
 
     private Integer pointBase;
+
 
 
 

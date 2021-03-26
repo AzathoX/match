@@ -3,12 +3,13 @@
 <mapper namespace="org.match.dataassert.mapper.GroupMapper">
   <resultMap id="BaseResultMap" type="org.match.dataassert.datadomain.GroupDomains">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uniname" jdbcType="CHAR" property="uniname" />
     <result column="event_id" jdbcType="INTEGER" property="eventId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="stage_id" jdbcType="INTEGER" property="stageId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, event_id, `name`, stage_id
+    id, uniname, event_id, `name`, stage_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,14 +22,17 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.GroupDomains" useGeneratedKeys="true">
-    insert into t_group (event_id, `name`, stage_id
-      )
-    values (#{eventId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{stageId,jdbcType=INTEGER}
-      )
+    insert into t_group (uniname, event_id, `name`, 
+      stage_id)
+    values (#{uniname,jdbcType=CHAR}, #{eventId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{stageId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.match.dataassert.datadomain.GroupDomains" useGeneratedKeys="true">
     insert into t_group
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uniname != null">
+        uniname,
+      </if>
       <if test="eventId != null">
         event_id,
       </if>
@@ -40,6 +44,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uniname != null">
+        #{uniname,jdbcType=CHAR},
+      </if>
       <if test="eventId != null">
         #{eventId,jdbcType=INTEGER},
       </if>
@@ -54,6 +61,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.match.dataassert.datadomain.GroupDomains">
     update t_group
     <set>
+      <if test="uniname != null">
+        uniname = #{uniname,jdbcType=CHAR},
+      </if>
       <if test="eventId != null">
         event_id = #{eventId,jdbcType=INTEGER},
       </if>
@@ -68,9 +78,23 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.match.dataassert.datadomain.GroupDomains">
     update t_group
-    set event_id = #{eventId,jdbcType=INTEGER},
+    set uniname = #{uniname,jdbcType=CHAR},
+      event_id = #{eventId,jdbcType=INTEGER},
       `name` = #{name,jdbcType=VARCHAR},
       stage_id = #{stageId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <insert id="batchInsert" parameterType="map" >
+    <!--@mbg.generated temp_config,-->
+    insert into t_group
+    (event_id,uniname,name)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.eventId,jdbcType=INTEGER},
+      #{item.uniname,jdbcType=CHAR},
+      #{item.name,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
 </mapper>

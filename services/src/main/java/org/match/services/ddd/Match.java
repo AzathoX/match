@@ -40,6 +40,9 @@ public class Match implements DriverDomainDesignedable {
 
     private Map<String,Team> teams;
 
+    @Setter
+    private AbstractSchedule schedule;
+
 
     public Match(){
         this.teamDomains = new ArrayList<>();
@@ -55,11 +58,11 @@ public class Match implements DriverDomainDesignedable {
 
 
 
-    public static Match from(MatchTempDomain vmatchTempDomains){
+    public static Match from(MatchTempDomain matchTempDomains){
         Match match = new Match();
-        match.matchTempDomain = vmatchTempDomains;
-        match.eventDomain =  vmatchTempDomains.getEventDomain();
-        match.programDomain = vmatchTempDomains.getProgramDomain();
+        match.matchTempDomain = matchTempDomains;
+        match.eventDomain =  matchTempDomains.getEventDomain();
+        match.programDomain = matchTempDomains.getProgramDomain();
         match.hasProgramDomain = Objects.nonNull(match.programDomain);
         match.hasConfig = Objects.nonNull(match.matchTempDomain.getTempConfig());
         return match;
@@ -92,32 +95,6 @@ public class Match implements DriverDomainDesignedable {
         return match;
     }
 
-    /**
-     * 将event对象转成json
-     * {
-     *    hash: event.hash()  //下列属性
-     *    event：{
-     *          id: 232
-     *          name: 模拟4
-     *          type: 2
-     *          matchTypes:10.3
-     *          subMatchCount:2
-     *          ruleType:1
-     *          teamCount:8
-     *          pointSystemId:21
-     *          pointSystemId2:15
-     *          simpleName:多项
-     *          subMatchNames：'双打|女单'
-     *          species：1
-     *          programId:6
-     *          matchTypeVals:[10, 3]
-     *    }
-     *    count:3 //可用场地
-     *    people: x-4//默认生成人数
-     *    outlineRule：名次 //出线规则
-     *    start-time ：//开始时间
-     * }
-     */
     public void jsonConfig(){
         int hash = this.eventDomain.hashCode();
         TempJson tempJson = TempJson.builder()
@@ -144,13 +121,11 @@ public class Match implements DriverDomainDesignedable {
     public BusinessObject bo() {
 
         MatchTemplateBO.MatchTemplateBOBuilder boBuilder = MatchTemplateBO.builder()
-                .id(this.matchTempDomain.getId())
                 .name(this.eventDomain.getName())
                 .description(this.eventDomain.getDescription())
                 .type(this.eventDomain.getType())
                 .matchTypes(this.eventDomain.getMatchTypes())
                 .subMatchCount(this.eventDomain.getSubMatchCount())
-                .eventId(this.matchTempDomain.getEventId())
                 .ruleType(this.eventDomain.getRuleType())
                 .teamCount(this.eventDomain.getTeamCount())
                 .pointSystemId(this.eventDomain.getPointSystemId())
@@ -162,6 +137,10 @@ public class Match implements DriverDomainDesignedable {
                 .pointBase(this.eventDomain.getPointBase())
                 .groupCount(this.eventDomain.getGroupCount())
                 .programId(this.eventDomain.getProgramId());
+        if(Objects.nonNull(this.matchTempDomain)){
+            boBuilder.id(this.matchTempDomain.getId())
+                    .eventId(this.matchTempDomain.getEventId());
+        }
         if(hasConfig){
              boBuilder.tempConfig(this.matchTempDomain.getTempConfig());
              boBuilder.tempUniname(this.matchTempDomain.getTempUniname());
@@ -207,6 +186,16 @@ public class Match implements DriverDomainDesignedable {
             this.teams.put(team.getRemark(),from);
             this.teamDomains.add(team);
         }
+    }
+
+    public void schedule(){
+        //准备
+
+        //编排
+        this.schedule.schedule();
+
+        //保存
+
     }
 
     public List<PlayerDomain> genericPlayer(){
